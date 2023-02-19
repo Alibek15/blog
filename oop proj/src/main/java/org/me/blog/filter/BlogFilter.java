@@ -44,4 +44,3 @@ public class BlogFilter implements Filter {
         chain.doFilter(request, response);
     }
 }
-
