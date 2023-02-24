@@ -24,4 +24,33 @@ public class ShowBlogServlet extends HttpServlet {
 
         request.getRequestDispatcher("show.jsp").forward(request,response);
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        Integer author = Integer.valueOf(request.getParameter("author"));
+        Post p = new Post(title,content,author,null);
+
+
+        String redirect = "/show?error=1"; //пустой пост
+
+
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+        if (user!= null) {
+
+            if (DbManager.getAllBlog()!=null) {
+
+                List<Post> post =DbManager.getAllBlog();
+
+                if(post.contains(p)) {
+                    log.info("TRUE");
+                }
+                request.setAttribute("POST",post);
+                redirect = "/show?success";
+            }
+
+        }
+            response.sendRedirect(redirect);
+    }
 }
