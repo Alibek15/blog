@@ -75,7 +75,9 @@ public class DbManager {
 
      }
 
- public static List<Post> getAllBlog() {}
+ public static List<Post> getAllBlog() {
+ try{}catch()finally{}
+ }
   
 
    
