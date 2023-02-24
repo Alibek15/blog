@@ -76,6 +76,11 @@ public class DbManager {
      }
 
  public static List<Post> getAllBlog() {
+  List<Post> blogs = new ArrayList();
+
+
+            EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+            EntityTransaction transaction = null;
  try{}catch()finally{}
  }
   
