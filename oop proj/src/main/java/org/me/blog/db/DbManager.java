@@ -46,6 +46,7 @@ public class DbManager {
      public  static boolean addOrUpdate(final Operations operations, final BaseEntity object){
      }
 
+ public static List<Post> getAllBlog() {}
   
 
    
