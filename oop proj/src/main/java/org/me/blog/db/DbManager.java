@@ -43,6 +43,8 @@ public class DbManager {
         }
         return user;
     }
+     public  static boolean addOrUpdate(final Operations operations, final BaseEntity object){
+     }
 
   
 
