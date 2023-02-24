@@ -17,5 +17,22 @@ public class AddBlogServlet extends HttpServlet {
         else{
             response.sendRedirect("/login");
         }
+        @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+
+        String redirect = "/addblog?error";
+        if(user != null){
+
+            Post post = new Post(title,content,user.getId().intValue(), Timestamp.valueOf(LocalDateTime.now()));
+            if (DbManager.addOrUpdate(Operations.CREATE, post)) {
+                redirect = "/addblog?success";
+            }
+        }
+        response.sendRedirect(redirect);
+    }
 
     }
