@@ -44,6 +44,10 @@ public class DbManager {
         return user;
     }
      public  static boolean addOrUpdate(final Operations operations, final BaseEntity object){
+      boolean flag = false;
+
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
      
       try { //try with resource всегда должен имплиментироваться от autoclosable
             transaction = manager.getTransaction();
@@ -66,6 +70,7 @@ public class DbManager {
         }finally {
             manager.close();
         }
+      return flag;
 
 
      }
