@@ -44,9 +44,30 @@ public class DbManager {
         return user;
     }
      public  static boolean addOrUpdate(final Operations operations, final BaseEntity object){
-      try{}
-      catch(){}
-      finally{}
+     
+      try { //try with resource всегда должен имплиментироваться от autoclosable
+            transaction = manager.getTransaction();
+            transaction.begin();
+            if(operations.equals(Operations.CREATE)){
+                manager.persist(object);
+            }else{
+                manager.merge(object);
+            }
+
+            transaction.commit();
+            flag = true;//проверка что update или user прошла успешно
+
+        }catch (Exception e){
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+
+        }finally {
+            manager.close();
+        }
+
+
      }
 
  public static List<Post> getAllBlog() {}
