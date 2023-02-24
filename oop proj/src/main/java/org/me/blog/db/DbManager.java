@@ -81,7 +81,30 @@ public class DbManager {
 
             EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
             EntityTransaction transaction = null;
- try{}catch()finally{}
+ try { //try with resource всегда должен имплиментироваться от autoclosable
+                transaction = manager.getTransaction();
+                transaction.begin();
+
+                Query query = manager.createNativeQuery("Select p.id, p.title, p.content, u.full_name from posts p inner join client u on p.author=u.id");
+
+
+                blogs = query.getResultList();
+
+
+
+                transaction.commit();
+
+
+            } catch (Exception e) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+                e.printStackTrace();
+
+            } finally {
+                manager.close();
+            }
+            return blogs;
  }
   
 
